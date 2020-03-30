@@ -71,24 +71,24 @@
                     <div class="form-top">
                         <div class="form-top-left">
                             <h3>Login to our site</h3>
-                            <p>Enter your username and password to log on:</p>
+                            <p>如果没有账号点击<a href="http://lyx.wdx0218.com/book/register/register">注册</a>或点击下方扫码登录</p>
                         </div>
                         <div class="form-top-right">
                             <i class="fa fa-lock"></i>
                         </div>
                     </div>
                     <div class="form-bottom">
-                        <form role="form" action="" method="post" class="login-form">
+                        <div role="form"  class="login-form">
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Username</label>
-                                <input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+                                <input type="text" name="form-username" placeholder="手机号..." class="form-username form-control" id="form-username">
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Password</label>
-                                <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                <input type="password" name="form-password" placeholder="密码..." class="form-password form-control" id="form-password">
                             </div>
                             <button type="submit" class="btn">Sign in!</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -147,7 +147,7 @@
                 dataType:'json',
                 success:function(res){
                     if (res.code){
-                        location.href='index';
+                        location.href='http://lyx.wdx0218.com/book/book/index';
                     }
                 }
             });
@@ -161,6 +161,28 @@
     });
 
     //定时检测登录信息 判断 跳转
+
+    //输入手机号密码登录跳转
+    $('.btn').click(function(){
+       var phone=$('#form-username').val();
+       var password=$('#form-password').val();
+       $.ajax({
+          url:'dologin',
+          data:{phone:phone,password:password},
+          type:'post',
+          dataType:'json',
+          success:function(res){
+              if (res.code==1){
+                  alert(res.msg);
+                  location.href='http://lyx.wdx0218.com/book/book/index';
+              }else if(res.code==444){
+                  alert(res.msg);
+              }
+          }
+
+       });
+
+    });
 
 
 

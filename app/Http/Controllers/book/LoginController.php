@@ -5,6 +5,8 @@ namespace App\Http\Controllers\book;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Tools\qrcode;
+use App\models\bookuser;
+
 
 class LoginController extends Controller
 {
@@ -71,5 +73,24 @@ class LoginController extends Controller
             return json_encode(['code'=>2]);
         }
 
+    }
+
+    public function dologin()
+    {
+        $phone=request()->input('phone');
+        $password=request()->input('password');
+
+        //根据姓名查询
+        $data= bookuser::where('phone',$phone)->first();
+        if ($data) {
+            $res=password_verify($password,$data->password);
+            if ($res) {
+                return json_encode(['code'=>1,'msg'=>'登录成功']);
+            }else{
+                return json_encode(['code'=>444,'msg'=>'密码错误']);
+            }
+        }else{
+            return json_encode(['code'=>444,'msg'=>'此用户不存在']);
+        }
     }
 }

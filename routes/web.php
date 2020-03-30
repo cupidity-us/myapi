@@ -66,12 +66,23 @@ Route::prefix('test/belief')->group(function(){//前台登录页
 //登录oauth
 Route::prefix('book/login')->group(function(){//前台登录页
     Route::any('login','book\LoginController@login');//登录页面
+    Route::any('dologin','book\LoginController@dologin');//登录
+
     Route::any('qrcode','book\LoginController@qrcode');//二维码
     Route::any('oauth','book\LoginController@oauth');//二维码
     Route::any('loginin','book\LoginController@loginin');//二维码
     Route::any('getstatus','book\LoginController@getstatus');//查看是否需要跳转
     Route::any('code','book\LoginController@code');//微信平台
 });
+//注册
+Route::prefix('book/register')->group(function(){//注册
+    Route::any('register','book\RegisterController@register');//注册页面
+    Route::any('doregister','book\RegisterController@doregister');//注册
 
+});
+//图书index
+Route::prefix('book/book')->group(function(){//注册
+    Route::any('index','book\BookController@index');//qq阅读
+});
 
 
